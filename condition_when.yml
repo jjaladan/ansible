@@ -1,0 +1,8 @@
+--- 
+- name: if os is 6 proceed, if 7 not proceed 
+  hosts: all
+  remote_user: root
+  tasks: 
+  - name: if os is 6 create user test1
+    user: name=user state=present uid=1002
+    when: ansible_distribution == 'OracleLinux'

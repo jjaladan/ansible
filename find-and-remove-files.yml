@@ -1,0 +1,21 @@
+---
+
+- name: find and remove files
+  hosts: TEST
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: find files which starts from file*
+    find:
+     paths: "/var/tmp"
+     patterns: "file**"
+     file_type: file
+     recurse: yes
+    register: list_of_files
+
+  - name: remove above listed files
+    file:
+     path: "{{ item.path }}"
+     state: absent
+    with_items: "{{ list_of_files.files }}"

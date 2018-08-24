@@ -1,0 +1,8 @@
+---
+- include: ftp.yml
+- name: to display the total and free on the screen when we logged in
+  hosts: client1
+  remote_user: root
+  tasks:
+  - name: display hostname and kernal version 
+    copy: dest=/etc/motd content="{{ ansible_hostname }} {{ ansible_kernel }} {{ ansible_memtotal_mb}} {{ ansible_swaptotal_mb}}  {{ ansible_memfree_mb }} \n " 
